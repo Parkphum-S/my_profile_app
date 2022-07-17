@@ -16,10 +16,12 @@
 	<string>my_profile_app</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
-	<Key>NSPhotoLibraryUsageDescription</Key>
-	<string>Use Camera for user profile xxx.....</string>
-	<Key>NSCameraUsageDescription</Key>
-	<string>Use Camera for user profile xxx...</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>This app requires access to the photo library.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>This app does not require access to the microphone.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>This app requires access to the camera.</string>
 	<key>CFBundleShortVersionString</key>
 	<string>$(FLUTTER_BUILD_NAME)</string>
 	<key>CFBundleSignature</key>
