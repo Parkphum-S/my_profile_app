@@ -4,7 +4,7 @@
 
 -👀 I’m interested in Codeing
 
--SAU Project kinkun_app
+-SAU Project my_profile_app
 
 -S6319c10024
 
