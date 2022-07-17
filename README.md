@@ -1,16 +1,11 @@
 # my_profile_app
 
-A new Flutter project.
+-👋 Hi, I’m @Parkphum-S
 
-## Getting Started
+-👀 I’m interested in Codeing
 
-This project is a starting point for a Flutter application.
+-SAU Project kinkun_app
 
-A few resources to get you started if this is your first Flutter project:
+-S6319c10024
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+<img src="https://i.ibb.co/K2tV2xd/Screen-Shot-2022-07-17-at-19-38-03.png" width="250"> 
