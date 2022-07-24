@@ -1,5 +1,9 @@
-// ignore_for_file: unused_local_variable
+// ignore_for_file: unused_local_variable, unused_import, unused_field
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:my_profile_app/views/your_about_ui.dart';
 import 'package:my_profile_app/views/your_email_ui.dart';
 import 'package:my_profile_app/views/your_name_ui.dart';
@@ -18,6 +22,29 @@ class _HomeUIState extends State<HomeUI> {
   TextEditingController yourphoneCtrl = TextEditingController(text: '');
   TextEditingController youremailCtrl = TextEditingController(text: '');
   TextEditingController youraboutCtrl = TextEditingController(text: '');
+
+  File? _image;
+
+  getImageFromCameraAndSaveToSF() async {
+    XFile? pickImage =
+        await ImagePicker().pickImage(source: ImageSource.camera);
+    if (pickImage != null) {
+      setState(() {
+        _image = File(pickImage.path);
+      });
+    }
+  }
+
+  getImageFromGalleryAndSaveToSF() async {
+    XFile? pickImage =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
+    if (pickImage != null) {
+      setState(() {
+        _image = File(pickImage.path);
+      });
+    }
+  }
+
   check_and_show_data() async {
     SharedPreferences prefe = await SharedPreferences.getInstance();
     bool yournameKey = prefe.containsKey('yourname');
@@ -73,19 +100,33 @@ class _HomeUIState extends State<HomeUI> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Container(
-                    height: MediaQuery.of(context).size.width * 0.5,
-                    width: MediaQuery.of(context).size.width * 0.5,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      image: DecorationImage(
-                        image: AssetImage(
-                          'assets/images/myprofile.png',
+                  _image == null
+                      ? Container(
+                          height: MediaQuery.of(context).size.width * 0.5,
+                          width: MediaQuery.of(context).size.width * 0.5,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            image: DecorationImage(
+                              image: AssetImage(
+                                'assets/images/myprofile.png',
+                              ),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        )
+                      : Container(
+                          height: MediaQuery.of(context).size.width * 0.5,
+                          width: MediaQuery.of(context).size.width * 0.5,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            image: DecorationImage(
+                              image: AssetImage(
+                                'assets/images/myprofile.png',
+                              ),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
                         ),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
                   IconButton(
                     onPressed: () {},
                     icon: Icon(
