@@ -120,15 +120,17 @@ class _HomeUIState extends State<HomeUI> {
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
                             image: DecorationImage(
-                              image: AssetImage(
-                                'assets/images/myprofile.png',
+                              image: FileImage(
+                                _image!,
                               ),
                               fit: BoxFit.cover,
                             ),
                           ),
                         ),
                   IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      getImageFromCameraAndSaveToSF();
+                    },
                     icon: Icon(
                       Icons.camera_alt_rounded,
                       size: MediaQuery.of(context).size.width * 0.08,
