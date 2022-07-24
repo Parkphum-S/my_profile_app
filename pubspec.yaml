@@ -37,8 +37,8 @@ dependencies:
   google_fonts: ^3.0.1 # GoogleFonts
   image_picker: ^0.8.5+3 #เปิดกล้อง เปิดอัลบัม
   shared_preferences: ^2.0.15 #เก็บข้อมูลในเครื่อง
-  
-
+  path_provider: ^2.0.11
+  path: ^1.8.0
 
 
 dev_dependencies:
