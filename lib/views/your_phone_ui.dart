@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class YourPhoneUI extends StatefulWidget {
   const YourPhoneUI({Key? key}) : super(key: key);
@@ -10,6 +11,11 @@ class YourPhoneUI extends StatefulWidget {
 
 class _YourPhoneUIState extends State<YourPhoneUI> {
   TextEditingController phoneCtrl = TextEditingController(text: '');
+  Future addYourPhonToSF() async {
+    SharedPreferences prefer = await SharedPreferences.getInstance();
+    prefer.setString('yourphone', phoneCtrl.text);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -92,7 +98,11 @@ class _YourPhoneUIState extends State<YourPhoneUI> {
                       );
                     },
                   );
-                } else {}
+                } else {
+                  addYourPhonToSF().then((value) {
+                    Navigator.pop(context);
+                  });
+                }
               },
               child: Text(
                 'บันทึก',

@@ -1,8 +1,10 @@
+// ignore_for_file: unused_local_variable
 import 'package:flutter/material.dart';
 import 'package:my_profile_app/views/your_about_ui.dart';
 import 'package:my_profile_app/views/your_email_ui.dart';
 import 'package:my_profile_app/views/your_name_ui.dart';
 import 'package:my_profile_app/views/your_phone_ui.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeUI extends StatefulWidget {
   const HomeUI({Key? key}) : super(key: key);
@@ -12,6 +14,45 @@ class HomeUI extends StatefulWidget {
 }
 
 class _HomeUIState extends State<HomeUI> {
+  TextEditingController yournameCtrl = TextEditingController(text: '');
+  TextEditingController yourphoneCtrl = TextEditingController(text: '');
+  TextEditingController youremailCtrl = TextEditingController(text: '');
+  TextEditingController youraboutCtrl = TextEditingController(text: '');
+  check_and_show_data() async {
+    SharedPreferences prefe = await SharedPreferences.getInstance();
+    bool yournameKey = prefe.containsKey('yourname');
+    bool yourphoneKey = prefe.containsKey('yourphone');
+    bool youremailKey = prefe.containsKey('youremail');
+    bool youraboutKey = prefe.containsKey('yourabout');
+
+    if (yournameKey == true) {
+      setState(() {
+        yournameCtrl.text = prefe.getString('yourname')!;
+      });
+    }
+    if (yourphoneKey == true) {
+      setState(() {
+        yourphoneCtrl.text = prefe.getString('yourphone')!;
+      });
+    }
+    if (youremailKey == true) {
+      setState(() {
+        youremailCtrl.text = prefe.getString('youremail')!;
+      });
+    }
+    if (youraboutKey == true) {
+      setState(() {
+        youraboutCtrl.text = prefe.getString('yourabout')!;
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    check_and_show_data();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,6 +105,7 @@ class _HomeUIState extends State<HomeUI> {
                   right: 35.0,
                 ),
                 child: TextField(
+                  controller: yournameCtrl,
                   readOnly: true,
                   decoration: InputDecoration(
                     label: Text(
@@ -99,6 +141,7 @@ class _HomeUIState extends State<HomeUI> {
                   right: 35.0,
                 ),
                 child: TextField(
+                  controller: yourphoneCtrl,
                   readOnly: true,
                   decoration: InputDecoration(
                     label: Text(
@@ -134,6 +177,7 @@ class _HomeUIState extends State<HomeUI> {
                   right: 35.0,
                 ),
                 child: TextField(
+                  controller: youremailCtrl,
                   readOnly: true,
                   decoration: InputDecoration(
                     label: Text(
@@ -169,6 +213,7 @@ class _HomeUIState extends State<HomeUI> {
                   right: 35.0,
                 ),
                 child: TextField(
+                  controller: youraboutCtrl,
                   readOnly: true,
                   decoration: InputDecoration(
                     label: Text(
