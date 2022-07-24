@@ -1,4 +1,4 @@
-// ignore_for_file: unused_local_variable, unused_import, unused_field
+// ignore_for_file: unused_local_variable, unused_import, unused_field, unused_element
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -8,6 +8,8 @@ import 'package:my_profile_app/views/your_about_ui.dart';
 import 'package:my_profile_app/views/your_email_ui.dart';
 import 'package:my_profile_app/views/your_name_ui.dart';
 import 'package:my_profile_app/views/your_phone_ui.dart';
+import 'package:path/path.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeUI extends StatefulWidget {
@@ -33,16 +35,32 @@ class _HomeUIState extends State<HomeUI> {
         _image = File(pickImage.path);
       });
     }
+    Directory imageDirectory = await getImageFromCameraAndSaveToSF();
+    String imagePath = imageDirectory.path;
+    var imageName = basename(pickImage!.path);
+    File localimage = await File(pickImage.path).copy('$imagePath/$imageName');
+
+    SharedPreferences prefer = await SharedPreferences.getInstance();
+    prefer.setString('yourimage', localimage.path);
   }
 
-  getImageFromGalleryAndSaveToSF() async {
+  getimageFromGalleryAndSaveToSF() async {
     XFile? pickImage =
         await ImagePicker().pickImage(source: ImageSource.gallery);
+
     if (pickImage != null) {
       setState(() {
         _image = File(pickImage.path);
       });
     }
+
+    Directory imageDir = await getApplicationDocumentsDirectory();
+    String imagePath = imageDir.path;
+    var imageName = basename(pickImage!.path);
+    File localImage = await File(pickImage.path).copy('$imagePath/$imageName');
+
+    SharedPreferences prefer = await SharedPreferences.getInstance();
+    prefer.setString('yourimage', localImage.path);
   }
 
   check_and_show_data() async {
@@ -51,6 +69,7 @@ class _HomeUIState extends State<HomeUI> {
     bool yourphoneKey = prefe.containsKey('yourphone');
     bool youremailKey = prefe.containsKey('youremail');
     bool youraboutKey = prefe.containsKey('yourabout');
+    bool yourimageKey = prefe.containsKey('yourimage');
 
     if (yournameKey == true) {
       setState(() {
@@ -70,6 +89,11 @@ class _HomeUIState extends State<HomeUI> {
     if (youraboutKey == true) {
       setState(() {
         youraboutCtrl.text = prefe.getString('yourabout')!;
+      });
+    }
+    if (yourimageKey == true) {
+      setState(() {
+        _image = File((prefe.getString('yourimage'))!);
       });
     }
   }
@@ -129,7 +153,7 @@ class _HomeUIState extends State<HomeUI> {
                         ),
                   IconButton(
                     onPressed: () {
-                      getImageFromCameraAndSaveToSF();
+                      getimageFromGalleryAndSaveToSF();
                     },
                     icon: Icon(
                       Icons.camera_alt_rounded,
